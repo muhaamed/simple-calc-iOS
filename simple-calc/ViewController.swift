@@ -26,8 +26,8 @@ class ViewController: UIViewController {
     
     
     
+    
     @IBAction func numbers(_ sender: UIButton) {
-        //print(sender.currentTitle)
         numString = numString + sender.currentTitle!
         label.text = numString
         
@@ -36,19 +36,19 @@ class ViewController: UIViewController {
     
     @IBAction func operations(_ sender: UIButton) {
         let value:Double = Double(label.text!)!
-        if sender.currentTitle != "Fact"{
+       if sender.currentTitle != "Fact"{
             numberArray.append(value)
         }
         
+
         if sender.currentTitle != "="{
             mathOperator = sender.currentTitle!
             numString = ""
+            
         }else{
-            //print(mathOperator)
             switch mathOperator {
             case "Fact":
                 if numberArray.count == 1{
-                    print("count == 1")
                     var answer = 1
                     var factNumber = 0
                     factNumber = Int(numberArray[0])
@@ -133,23 +133,42 @@ class ViewController: UIViewController {
                         answer = answer * i
                     }
                 }
+                if answer.truncatingRemainder(dividingBy: 1) != 0{
+                    answer = answer.roundTo(places: 8)
+                }
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
             case "-":
                 var answer = 0.0
-                answer = numberArray[0]-numberArray[1]
+                for i in numberArray{
+                    if answer == 0.0{
+                        answer = i
+                    }else{
+                        answer = answer - i
+                    }
+                }
+                if answer.truncatingRemainder(dividingBy: 1) != 0{
+                    answer = answer.roundTo(places: 8)
+                }
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
             case "+":
-                    var answer = 0.0
-                    for i in numberArray{
-                        answer = answer+i
+                var answer = 0.0
+                for i in numberArray{
+                    if answer == 0.0{
+                        answer = i
+                    }else{
+                        answer = answer + i
                     }
-                    numberArray = []
-                    label.text = String(answer)
-                    mathOperator = ""
+                }
+                if answer.truncatingRemainder(dividingBy: 1) != 0{
+                    answer = answer.roundTo(places: 8)
+                }
+                numberArray = []
+                label.text = String(answer)
+                mathOperator = ""
             default:
                 print("default")
             }
