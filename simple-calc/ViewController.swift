@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var numberArray = [Double]()
     var numString:String = ""
     var mathOperator = ""
+    var historyList = [String]()
     var value3 = ""
 
     
@@ -47,6 +48,8 @@ class ViewController: UIViewController {
             numString = ""
             
         }else{
+            var finalAnswer = ""
+            var historyString = ""
             switch mathOperator {
             case "Fact":
                 if numberArray.count == 1{
@@ -62,8 +65,9 @@ class ViewController: UIViewController {
                             factNumber -= 1
                         }
                     }
-                    let historyString = "\(numberArray[0]) "+mathOperator+" = "+"\(answer)"
-                    print(historyString)
+                    historyString = "\(numberArray[0]) "+mathOperator+" = "+"\(answer)"
+                    //print(historyString)
+                    //finalAnswer = String(answer)
                     numberArray = []
                     label.text = String(answer)
                     mathOperator = ""
@@ -82,22 +86,24 @@ class ViewController: UIViewController {
                 var answer = 0
                 let count = (numberArray.count)
                 answer = count
-                var historyString = ""
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
-                    }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                print(numberArray)
+                if numberArray.count == 1{
+                    historyString = "\(numberArray.count) "+mathOperator+" = "+"\(answer)"
+                }else{
+                    for i in numberArray{
+                        if i == numberArray.last{
+                            historyString = historyString+" \(i)"+" = "+"\(answer)"
+                        }else{
+                            historyString = historyString+" \(i) "+mathOperator
+                        }
                     }
                 }
-                print(historyString)
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
                 numString = ""
             case "Avg":
                 var answer = 0.0
-                var historyString = ""
                 let count:Double = Double(numberArray.count)
                 for i in numberArray{
                     if i == numberArray.last{
@@ -105,14 +111,13 @@ class ViewController: UIViewController {
                     }else{
                         historyString = historyString+" \(i) "+mathOperator
                     }
-
                     answer = answer+i
                 }
                 answer = answer/count
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString)
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
@@ -120,7 +125,6 @@ class ViewController: UIViewController {
                 
             case "%":
                 var answer = 0.0
-                var historyString = ""
                 for i in numberArray{
                     if i == numberArray.last{
                         historyString = historyString+" \(i)"
@@ -138,14 +142,13 @@ class ViewController: UIViewController {
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString)
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
                 numString = ""
             case "÷":
                 var answer = 0.0
-                var historyString = ""
                 for i in numberArray{
                     if i == numberArray.last{
                         historyString = historyString+" \(i)"
@@ -163,85 +166,79 @@ class ViewController: UIViewController {
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString)
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
                 numString = ""
             case "x":
                 var answer = 0.0
-                var historyString = ""
-                for i in numberArray{
+                for i in 1...numberArray.count{
                     
-                    if i != numberArray.last{
-                        
-                        historyString = historyString+" \(i)"
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        
-                        historyString = historyString+" \(i) "+mathOperator
-                        print(mathOperator)
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
 
                     
                     if answer == 0.0{
-                        answer = i
+                        answer = numberArray[i-1]
                     }else{
-                        answer = answer * i
+                        answer = answer * numberArray[i-1]
                     }
                 }
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString)
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
                 numString = ""
             case "-":
                 var answer = 0.0
-                var historyString = ""
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
+                 for i in 1...numberArray.count{
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
 
                     if answer == 0.0{
-                        answer = i
+                        answer = numberArray[i-1]
                     }else{
-                        answer = answer - i
+                        answer = answer - numberArray[i-1]
                     }
                 }
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString)
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
                 numString = ""
             case "+":
+                print(mathOperator)
                 var answer = 0.0
-                var historyString = ""
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
+                for i in 1...numberArray.count{
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
                     
                     if answer == 0.0{
-                        answer = i
+                        answer = numberArray[i-1]
                     }else{
-                        answer = answer + i
+                        answer = answer + numberArray[i-1]
                     }
                 }
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
                     answer = answer.roundTo(places: 8)
                 }
-                print(historyString+" = "+"\(answer)")
-                value3 = historyString
+                historyString = historyString+" = "+"\(answer)"
                 numberArray = []
                 label.text = String(answer)
                 mathOperator = ""
@@ -249,6 +246,8 @@ class ViewController: UIViewController {
             default:
                 print("default")
             }
+            
+            historyList.append(historyString)
             
         }//end of else
         
@@ -268,15 +267,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destViewController : HistoryViewController = segue.destination as! HistoryViewController
-//        destViewController.labelText = value3+"\nhello"
-//        
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//        label.textColor = UIColor.white
-//        label.center = CGPoint(x: 0, y: 285)
-//        label.textAlignment = .left
-//        label.text = "I'am a test label"
-//        destViewController.view.addSubview(label)
+        let destViewController : HistoryViewController = segue.destination as! HistoryViewController
+        destViewController.history = historyList
     }
 
     override func didReceiveMemoryWarning() {

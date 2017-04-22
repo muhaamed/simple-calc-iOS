@@ -11,22 +11,29 @@ import UIKit
 
 class HistoryViewController: UIViewController, UITableViewDataSource {
     
+    var history = [String]()
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return history.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        cell.textLabel?.text = "Sa wagi"
+        let cell = UITableViewCell()
+        cell.textLabel?.text = history[indexPath.row]
         return cell
     }
-    @IBOutlet weak var label: UILabel!
-    var labelText = String()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController : ViewController = segue.destination as! ViewController
+        destViewController.historyList = history
+    }
+
+    
     override func viewDidLoad() {
-        label.text = labelText
+        
     }
 }
