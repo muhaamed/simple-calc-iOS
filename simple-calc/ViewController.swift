@@ -48,7 +48,6 @@ class ViewController: UIViewController {
             numString = ""
             
         }else{
-            var finalAnswer = ""
             var historyString = ""
             switch mathOperator {
             case "Fact":
@@ -90,11 +89,11 @@ class ViewController: UIViewController {
                 if numberArray.count == 1{
                     historyString = "\(numberArray.count) "+mathOperator+" = "+"\(answer)"
                 }else{
-                    for i in numberArray{
-                        if i == numberArray.last{
-                            historyString = historyString+" \(i)"+" = "+"\(answer)"
+                    for i in 1...numberArray.count{
+                        if i == numberArray.count{
+                            historyString = historyString+" \(numberArray[i-1])"+" = "+"\(answer)"
                         }else{
-                            historyString = historyString+" \(i) "+mathOperator
+                            historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                         }
                     }
                 }
@@ -105,13 +104,13 @@ class ViewController: UIViewController {
             case "Avg":
                 var answer = 0.0
                 let count:Double = Double(numberArray.count)
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
+                for i in 1...numberArray.count{
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
-                    answer = answer+i
+                    answer = answer+numberArray[i-1]
                 }
                 answer = answer/count
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
@@ -125,18 +124,18 @@ class ViewController: UIViewController {
                 
             case "%":
                 var answer = 0.0
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
+                for i in 1...numberArray.count{
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
 
                     
                     if answer == 0.0{
-                        answer = i
+                        answer = numberArray[i-1]
                     }else{
-                        answer = answer.truncatingRemainder(dividingBy: i)
+                        answer = answer.truncatingRemainder(dividingBy: numberArray[i-1])
                     }
                 }
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
@@ -149,18 +148,18 @@ class ViewController: UIViewController {
                 numString = ""
             case "÷":
                 var answer = 0.0
-                for i in numberArray{
-                    if i == numberArray.last{
-                        historyString = historyString+" \(i)"
+                for i in 1...numberArray.count{
+                    if i == numberArray.count{
+                        historyString = historyString+" \(numberArray[i-1])"
                     }else{
-                        historyString = historyString+" \(i) "+mathOperator
+                        historyString = historyString+" \(numberArray[i-1]) "+mathOperator
                     }
 
                     
                     if answer == 0.0{
-                        answer = i
+                        answer = numberArray[i-1]
                     }else{
-                        answer = answer / i
+                        answer = answer / numberArray[i-1]
                     }
                 }
                 if answer.truncatingRemainder(dividingBy: 1) != 0{
