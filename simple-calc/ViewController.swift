@@ -65,8 +65,6 @@ class ViewController: UIViewController {
                         }
                     }
                     historyString = "\(numberArray[0]) "+mathOperator+" = "+"\(answer)"
-                    //print(historyString)
-                    //finalAnswer = String(answer)
                     numberArray = []
                     label.text = String(answer)
                     mathOperator = ""
@@ -85,7 +83,6 @@ class ViewController: UIViewController {
                 var answer = 0
                 let count = (numberArray.count)
                 answer = count
-                print(numberArray)
                 if numberArray.count == 1{
                     historyString = "\(numberArray.count) "+mathOperator+" = "+"\(answer)"
                 }else{
@@ -219,7 +216,6 @@ class ViewController: UIViewController {
                 mathOperator = ""
                 numString = ""
             case "+":
-                print(mathOperator)
                 var answer = 0.0
                 for i in 1...numberArray.count{
                     if i == numberArray.count{
