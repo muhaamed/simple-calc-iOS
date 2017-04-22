@@ -27,6 +27,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "HISTORY"
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destViewController : ViewController = segue.destination as! ViewController
         destViewController.historyList = history
